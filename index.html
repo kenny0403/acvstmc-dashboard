@@ -28,12 +28,49 @@
   }
   .header {
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px; margin-bottom: 24px; padding-bottom: 16px;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 16px; padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
   .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
   .header h1 span { color: var(--accent); }
   .header-date { color: var(--text2); font-size: 0.9rem; }
+
+  /* Date Navigation */
+  .date-nav {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border-radius: 10px;
+    padding: 8px 12px; border: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .date-nav button {
+    background: var(--card2); color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 6px; cursor: pointer;
+    font-size: 0.85rem; font-weight: 500;
+    transition: all 0.15s;
+  }
+  .date-nav button:hover { background: var(--accent); border-color: var(--accent); }
+  .date-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .date-nav .date-display {
+    font-size: 1rem; font-weight: 600;
+    padding: 0 10px; min-width: 140px; text-align: center;
+  }
+  .date-nav .date-display .dayname { color: var(--text2); font-size: 0.75rem; }
+  .date-nav input[type="date"] {
+    background: var(--card2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .date-nav input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8); cursor: pointer;
+  }
+  .date-nav .today-badge {
+    background: rgba(59,130,246,0.2); color: var(--accent);
+    font-size: 0.7rem; padding: 2px 8px; border-radius: 10px;
+    font-weight: 600;
+  }
+
   .kpi-row {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 12px; margin-bottom: 24px;
@@ -148,11 +185,15 @@
   @media (max-width: 640px) {
     .estate-grid { grid-template-columns: 1fr; }
     .worker-row { grid-template-columns: 1fr 40px 70px 70px 30px; font-size: 0.78rem; }
+    .date-nav .date-display { min-width: auto; }
   }
 
   .loading { text-align: center; padding: 60px 20px; color: var(--text2); }
   .loading .spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--card2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  .no-data { text-align: center; padding: 40px; color: var(--text2); }
+  .no-data .big { font-size: 3rem; margin-bottom: 12px; }
 </style>
 </head>
 <body>
@@ -160,9 +201,22 @@
 <div class="header">
   <h1>📋 <span>ACVSTMC</span> 打卡監控</h1>
   <div>
-    <span class="header-date" id="currentDate"></span>
-    <span style="margin:0 8px;color:var(--border)">|</span>
     <span class="header-date" id="estateCount"></span>
+  </div>
+</div>
+
+<!-- Date Navigation -->
+<div style="margin-bottom:16px">
+  <div class="date-nav">
+    <button id="prevDayBtn" onclick="goDay(-1)">◀ 前一日</button>
+    <div class="date-display">
+      <span id="selectedDateDisplay"></span>
+      <div class="dayname" id="selectedDayName"></div>
+    </div>
+    <button id="nextDayBtn" onclick="goDay(1)">後一日 ▶</button>
+    <input type="date" id="datePicker" onchange="jumpToDate(this.value)">
+    <button onclick="goToday()" style="background:var(--accent);border-color:var(--accent)">📅 今日</button>
+    <span class="today-badge" id="todayBadge" style="display:none">今日</span>
   </div>
 </div>
 
@@ -214,35 +268,101 @@
 <div class="last-updated" id="lastUpdated">載入中...</div>
 
 <script>
+// === HK timezone helper ===
+const HK_OFFSET = 8 * 60; // minutes
+
+function getHKNow() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  return new Date(utc + HK_OFFSET * 60000);
+}
+
+function formatHKDateTime(date) {
+  const ds = date.toLocaleDateString('zh-HK', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+  const ts = date.toLocaleTimeString('zh-HK', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
+  return { dateString: ds, timeString: ts, full: ds + ' ' + ts };
+}
+
+function formatDateDisplay(dateStr) {
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  const weekday = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][dt.getDay()];
+  return `${y}年${m}月${d}日 (${weekday})`;
+}
+
+// === Data loading ===
 const DATA_URL = 'data.json';
+const DATES_URL = 'dates.json';
+
 let allData = null;
+let availableDates = [];
+let currentDate = null; // YYYY-MM-DD being viewed
+let todayStr = null;
 let currentView = 'estate';
 
 async function loadData() {
   try {
-    const resp = await fetch(DATA_URL + '?t=' + Date.now());
-    allData = await resp.json();
-    init();
+    // Load dates index
+    const datesResp = await fetch(DATES_URL + '?t=' + Date.now());
+    const datesData = await datesResp.json();
+    availableDates = datesData.dates || [];
+    
+    // Determine today (HK time)
+    const hkNow = getHKNow();
+    todayStr = hkNow.getFullYear() + '-' + 
+      String(hkNow.getMonth()+1).padStart(2,'0') + '-' + 
+      String(hkNow.getDate()).padStart(2,'0');
+    
+    // Default to today, or latest available
+    currentDate = availableDates.includes(todayStr) ? todayStr : 
+                  (availableDates.length > 0 ? availableDates[availableDates.length-1] : todayStr);
+    
+    // Load the data for current date
+    await loadDateData(currentDate);
+    
   } catch(e) {
-    if (!allData) {
+    // Fallback: try loading data.json directly
+    try {
+      const resp = await fetch(DATA_URL + '?t=' + Date.now());
+      allData = await resp.json();
+      currentDate = allData.date;
+      availableDates = [currentDate];
+      init();
+    } catch(e2) {
       document.getElementById('estateView').innerHTML = 
         `<div class="empty-state"><div class="big">📡</div><p>無法載入數據<br><span style="font-size:0.8rem">請確認 data.json 已正確生成</span></p></div>`;
-      document.getElementById('lastUpdated').textContent = '⚠️ 數據載入失敗: ' + e.message;
+      document.getElementById('lastUpdated').textContent = '⚠️ 數據載入失敗: ' + e2.message;
     }
   }
 }
 
-function init() {
-  const now = new Date();
-  const ds = now.toLocaleDateString('zh-HK', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
-  document.getElementById('currentDate').textContent = '📅 ' + ds;
-
-  if (allData.lastUpdated) {
-    document.getElementById('lastUpdated').textContent = '🔄 最後更新: ' + allData.lastUpdated;
+async function loadDateData(dateStr) {
+  try {
+    let resp;
+    if (dateStr === todayStr) {
+      resp = await fetch(DATA_URL + '?t=' + Date.now());
+    } else {
+      resp = await fetch(`data-${dateStr}.json` + '?t=' + Date.now());
+    }
+    allData = await resp.json();
+    currentDate = dateStr;
+    init();
+  } catch(e) {
+    document.getElementById('estateView').innerHTML = 
+      `<div class="no-data"><div class="big">📭</div><p>${dateStr} 未有數據</p></div>`;
+    document.getElementById('lastUpdated').textContent = '⚠️ 載入失敗: ' + e.message;
   }
+}
 
-  // Populate estate filter
+function init() {
+  if (!allData) return;
+  
+  // Update date navigation
+  updateDateNav();
+  
+  // Update estate filter
   const sel = document.getElementById('estateFilter');
+  sel.innerHTML = '<option value="all">全部邨</option>';
   allData.estates.forEach(e => {
     const opt = document.createElement('option');
     opt.value = e.name;
@@ -255,25 +375,70 @@ function init() {
   renderShiftLegend();
 }
 
+function updateDateNav() {
+  const display = document.getElementById('selectedDateDisplay');
+  display.textContent = formatDateDisplay(currentDate);
+  
+  document.getElementById('selectedDayName').textContent = '';
+  
+  // Update date picker
+  document.getElementById('datePicker').value = currentDate;
+  
+  // Today badge
+  const badge = document.getElementById('todayBadge');
+  badge.style.display = currentDate === todayStr ? 'inline' : 'none';
+  
+  // Prev/Next buttons
+  const idx = availableDates.indexOf(currentDate);
+  document.getElementById('prevDayBtn').disabled = idx <= 0;
+  document.getElementById('nextDayBtn').disabled = idx >= availableDates.length - 1;
+}
+
+function goDay(delta) {
+  const idx = availableDates.indexOf(currentDate);
+  const newIdx = idx + delta;
+  if (newIdx < 0 || newIdx >= availableDates.length) return;
+  currentDate = availableDates[newIdx];
+  loadDateData(currentDate);
+}
+
+function jumpToDate(dateStr) {
+  if (!dateStr) return;
+  // Check if we have data for this date
+  if (availableDates.includes(dateStr)) {
+    currentDate = dateStr;
+    loadDateData(dateStr);
+  } else {
+    // Try loading directly
+    currentDate = dateStr;
+    loadDateData(dateStr);
+  }
+}
+
+function goToday() {
+  currentDate = todayStr;
+  if (availableDates.includes(todayStr)) {
+    loadDateData(todayStr);
+  } else {
+    // Load from main data.json
+    loadDateData(todayStr);
+  }
+}
+
 function getDayData() {
   if (!allData) return null;
-  // Try today first, fall back to latest available day
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth()+1).padStart(2,'0');
-  const dd = String(today.getDate()).padStart(2,'0');
-  const todayKey = yyyy + '-' + mm + '-' + dd;
-
-  if (allData.days && allData.days[todayKey]) {
-    return { date: todayKey, data: allData.days[todayKey] };
+  // Try from days dict first, then top-level
+  const dateKey = currentDate;
+  if (allData.days && allData.days[dateKey]) {
+    return { date: dateKey, data: allData.days[dateKey] };
   }
-  // Fall back to latest
-  const keys = Object.keys(allData.days || {}).sort();
-  if (keys.length > 0) {
-    const lastKey = keys[keys.length-1];
-    return { date: lastKey, data: allData.days[lastKey], isFallback: true };
-  }
-  return null;
+  // Fallback: use top-level estates
+  return {
+    date: dateKey,
+    data: {
+      estates: allData.estates || []
+    }
+  };
 }
 
 function calcWorkerStatus(worker) {
@@ -285,9 +450,9 @@ function calcWorkerStatus(worker) {
 
 function renderDashboard() {
   const dayInfo = getDayData();
-  if (!dayInfo) {
+  if (!dayInfo || !dayInfo.data) {
     document.getElementById('estateView').innerHTML = 
-      `<div class="empty-state"><div class="big">📅</div><p>今日未有編更資料</p></div>`;
+      `<div class="no-data"><div class="big">📅</div><p>未有編更資料</p></div>`;
     return;
   }
 
@@ -324,12 +489,12 @@ function renderDashboard() {
 
         let statusClass = isRest ? 'rest' : (hasIn && hasOut ? 'ok' : (hasIn || hasOut ? 'partial' : 'missing'));
 
-        rows += `<div class="worker-row">
-          <div class="name">${w.chineseName || w.name}</div>
-          <div class="shift ${(w.shift||'—').replace(/[.\s]/g, '')}">${w.shift || '—'}</div>
-          <div class="time">${w.clockIn || '—'}</div>
-          <div class="time">${w.clockOut || '—'}</div>
-          <div class="status ${statusClass}" title="${
+        rows += `<div class=\"worker-row\">
+          <div class=\"name\">${w.chineseName || w.name}</div>
+          <div class=\"shift ${(w.shift||'—').replace(/[.\s]/g, '')}\">${w.shift || '—'}</div>
+          <div class=\"time\">${w.clockIn || '—'}</div>
+          <div class=\"time\">${w.clockOut || '—'}</div>
+          <div class=\"status ${statusClass}\" title="${
             statusClass === 'ok' ? '已返工+收工' : statusClass === 'partial' ? '只打咗一次卡' : statusClass === 'rest' ? '休息' : '未打卡'
           }"></div>
         </div>`;
@@ -366,10 +531,6 @@ function renderDashboard() {
     });
 
     document.getElementById('estateView').innerHTML = html;
-
-    if (dayInfo.isFallback) {
-      document.getElementById('currentDate').textContent += ` (顯示: ${dayInfo.date})`;
-    }
   }
 
 function switchView(view) {
@@ -441,6 +602,21 @@ function renderShiftLegend() {
   container.innerHTML = html;
 }
 
+// === Update footer with HK time periodically ===
+function updateFooterClock() {
+  const hkNow = getHKNow();
+  const formatted = formatHKDateTime(hkNow);
+  const dateLabel = formatDateDisplay(currentDate);
+  
+  document.getElementById('lastUpdated').innerHTML = 
+    `🕐 香港時間: ${formatted.full}` + 
+    (currentDate !== todayStr ? `<br><span style="font-size:0.75rem;color:var(--yellow)">📅 正在查看: ${dateLabel}</span>` : '');
+}
+
+// Update clock every second
+setInterval(updateFooterClock, 1000);
+
+// Override the lastUpdated from data to show HK time instead
 loadData();
 </script>
 </body>
