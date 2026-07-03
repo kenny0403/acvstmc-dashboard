@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-07-03 04:36 UTC",
+  "lastUpdated": "2026-07-03 04:40 UTC",
   "date": "2026-07-03",
   "totalWorkers": 45,
-  "clockedIn": 33,
+  "clockedIn": 35,
   "clockedOut": 0,
-  "noPhoto": 12,
-  "hasPhoto": 33,
-  "attendanceRate": 73.3,
+  "noPhoto": 10,
+  "hasPhoto": 35,
+  "attendanceRate": 77.8,
   "shiftDefinitions": {
     "房委會(1,2座)": {
       "A": "06:30-16:30",
@@ -1557,7 +1557,7 @@
           "chineseName": "吳炳沟",
           "staffNo": "W3022",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "12:37",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -1856,7 +1856,7 @@
           "chineseName": "朱德鳴",
           "staffNo": "W3023",
           "shift": "C",
-          "clockIn": "",
+          "clockIn": "12:37",
           "clockOut": "",
           "monthlyShifts": [
             "C",
@@ -3532,7 +3532,7 @@
               "chineseName": "吳炳沟",
               "staffNo": "W3022",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "12:37",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -3831,7 +3831,7 @@
               "chineseName": "朱德鳴",
               "staffNo": "W3023",
               "shift": "C",
-              "clockIn": "",
+              "clockIn": "12:37",
               "clockOut": "",
               "monthlyShifts": [
                 "C",
@@ -4126,9 +4126,9 @@
     {
       "name": "美田邨",
       "total": 2,
-      "clockedIn": 1,
+      "clockedIn": 2,
       "clockedOut": 0,
-      "noPhoto": 1,
+      "noPhoto": 0,
       "rest": 0
     },
     {
@@ -4142,9 +4142,9 @@
     {
       "name": "迎東街市",
       "total": 3,
-      "clockedIn": 2,
+      "clockedIn": 3,
       "clockedOut": 0,
-      "noPhoto": 1,
+      "noPhoto": 0,
       "rest": 0
     },
     {

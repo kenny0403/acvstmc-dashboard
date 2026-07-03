@@ -190,8 +190,19 @@
     <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>未打卡</span>
     <span class="legend-item"><span class="legend-dot" style="background:var(--gray);opacity:0.4"></span>休息</span>
   </div>
+  <div class="legend" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+    <span style="font-weight:600;color:var(--text);font-size:0.8rem;margin-right:4px">🟦 更期顏色:</span>
+    <span class="legend-item"><span class="shift-chip shift A" style="font-size:0.65rem">A</span>早班</span>
+    <span class="legend-item"><span class="shift-chip shift B" style="font-size:0.65rem">B</span>日班</span>
+    <span class="legend-item"><span class="shift-chip shift C" style="font-size:0.65rem">C</span>夜班</span>
+    <span class="legend-item"><span class="shift-chip shift AB" style="font-size:0.65rem">AB</span>全日</span>
+    <span class="legend-item"><span class="shift-chip shift BC" style="font-size:0.65rem">BC</span>中間</span>
+    <span class="legend-item"><span class="shift-chip shift D" style="font-size:0.65rem">D</span>特殊</span>
+    <span class="legend-item"><span class="shift-chip shift H" style="font-size:0.65rem">H</span>休息</span>
+    <span class="legend-item"><span class="shift-chip shift N" style="font-size:0.65rem">N</span>通宵</span>
+  </div>
   <details id="shiftLegendDetails" style="margin-top:8px;font-size:0.8rem;color:var(--text2);cursor:pointer">
-    <summary style="font-weight:600;color:var(--text)">📖 更期對照表 (點擊展開)</summary>
+    <summary style="font-weight:600;color:var(--text)">📖 全部邨更期一覽 (點擊展開)</summary>
     <div id="shiftLegendContent" style="margin-top:8px;padding:12px;background:var(--card);border-radius:8px;border:1px solid var(--border)"></div>
   </details>
 </div>
@@ -334,16 +345,19 @@ function renderDashboard() {
           <span>${estate.name}</span>
           <span class="badge ${badge}">${badgeText}</span>
         </div>
-        <div style="padding:4px 16px 2px;font-size:0.7rem;color:var(--text2);display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--border)" title="按邨更期對照">
-          ${(() => {
-            const edefs = allData.shiftDefinitions ? allData.shiftDefinitions[estate.name] : null;
-            if (!edefs) return '';
-            return Object.keys(edefs).sort().map(c => {
-              const cls = c.replace(/[.\s]/g, '');
-              return `<span class="shift ${cls}" style="margin-right:4px">${c}:${edefs[c]}</span>`;
-            }).join('');
-          })()}
-        </div>
+        <div style="padding:6px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)">
+                  <div style="font-size:0.7rem;color:var(--text2);margin-bottom:3px;font-weight:500">📖 更期對照</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px">
+                  ${(() => {
+                    const edefs = allData.shiftDefinitions ? allData.shiftDefinitions[estate.name] : null;
+                    if (!edefs) return '<span style="color:var(--text2);font-size:0.7rem">暫無更期資料</span>';
+                    return Object.keys(edefs).sort().map(c => {
+                      const cls = c.replace(/[.\\s]/g, '');
+                      return `<span class="shift-chip shift ${cls}">${c}</span><span style="font-size:0.75rem;color:var(--text2);margin-right:6px">${edefs[c]}</span>`;
+                    }).join('');
+                  })()}
+                  </div>
+                </div>
         <div class="worker-row" style="background:rgba(255,255,255,0.02);font-size:0.75rem;color:var(--text2);grid-template-columns:1fr 50px 90px 90px 50px;border-bottom:1px solid var(--border);padding:6px 16px">
           <span>工人</span><span>更</span><span>返工</span><span>收工</span><span></span>
         </div>
