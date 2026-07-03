@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACVSTMC 打卡監控儀表板</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card2: #334155;
+    --accent: #3b82f6;
+    --accent2: #6366f1;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --gray: #64748b;
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+    --border: #334155;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Noto Sans HK', 'PingFang HK', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 16px;
+  }
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 24px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+  .header h1 span { color: var(--accent); }
+  .header-date { color: var(--text2); font-size: 0.9rem; }
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--card); border-radius: 12px; padding: 16px;
+    border: 1px solid var(--border); text-align: center;
+  }
+  .kpi-card .kpi-num { font-size: 2.2rem; font-weight: 800; margin: 4px 0; }
+  .kpi-card .kpi-label { font-size: 0.8rem; color: var(--text2); }
+  .kpi-card.green .kpi-num { color: var(--green); }
+  .kpi-card.yellow .kpi-num { color: var(--yellow); }
+  .kpi-card.red .kpi-num { color: var(--red); }
+  .kpi-card.blue .kpi-num { color: var(--accent); }
+
+  .controls {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .controls button, .controls select {
+    background: var(--card2); color: var(--text); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+  }
+  .controls button.active, .controls button:hover {
+    background: var(--accent); border-color: var(--accent);
+  }
+  .controls select { min-width: 140px; }
+
+  .estate-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px; margin-bottom: 20px;
+  }
+  .estate-card {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .estate-header {
+    padding: 12px 16px; font-weight: 600; font-size: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border);
+  }
+  .estate-header .badge {
+    font-size: 0.75rem; padding: 2px 10px; border-radius: 20px;
+    font-weight: 500;
+  }
+  .badge.ok { background: rgba(34,197,94,0.2); color: var(--green); }
+  .badge.warn { background: rgba(234,179,8,0.2); color: var(--yellow); }
+  .badge.bad { background: rgba(239,68,68,0.2); color: var(--red); }
+
+  .worker-row {
+    display: grid; grid-template-columns: 1fr 50px 90px 90px 50px;
+    padding: 10px 16px; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.85rem;
+  }
+  .worker-row:last-child { border-bottom: none; }
+  .worker-row .name { font-weight: 500; }
+  .worker-row .shift {
+    text-align: center; font-weight: 700; font-size: 0.9rem;
+    background: var(--card2); border-radius: 6px; padding: 2px 0;
+  }
+  .shift.A { color: #60a5fa; } .shift.B { color: #34d399; }
+  .shift.C { color: #f472b6; } .shift.AB { color: #fbbf24; }
+  .shift.BC { color: #fb923c; } .shift.D { color: #a78bfa; }
+  .shift.H { color: var(--gray); } .shift.P { color: var(--gray); }
+  .worker-row .time { text-align: center; font-size: 0.8rem; color: var(--text2); font-variant-numeric: tabular-nums; }
+  .worker-row .status {
+    width: 12px; height: 12px; border-radius: 50%; justify-self: center;
+  }
+  .status.ok { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+  .status.partial { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4); }
+  .status.missing { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
+  .status.rest { background: var(--gray); opacity: 0.4; }
+
+  .empty-state { padding: 40px; text-align: center; color: var(--text2); }
+  .empty-state .big { font-size: 3rem; margin-bottom: 12px; }
+
+  .calendar-view {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    overflow-x: auto; display: none; padding: 16px;
+  }
+  .calendar-view table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .calendar-view th, .calendar-view td {
+    padding: 6px 8px; text-align: center; border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .calendar-view th { background: var(--card2); font-weight: 600; position: sticky; top: 0; }
+  .calendar-view .estate-name { font-weight: 600; text-align: left; padding-left: 12px; }
+
+  .last-updated { text-align: center; color: var(--text2); font-size: 0.8rem; margin-top: 24px; padding: 12px; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 0.8rem; color: var(--text2); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  @media (max-width: 640px) {
+    .estate-grid { grid-template-columns: 1fr; }
+    .worker-row { grid-template-columns: 1fr 40px 70px 70px 30px; font-size: 0.78rem; }
+  }
+
+  .loading { text-align: center; padding: 60px 20px; color: var(--text2); }
+  .loading .spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--card2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 <span>ACVSTMC</span> 打卡監控</h1>
+  <div>
+    <span class="header-date" id="currentDate"></span>
+    <span style="margin:0 8px;color:var(--border)">|</span>
+    <span class="header-date" id="estateCount"></span>
+  </div>
+</div>
+
+<div class="kpi-row" id="kpiRow">
+  <div class="kpi-card blue"><div class="kpi-label">👷 應到工人</div><div class="kpi-num" id="kpiTotal">—</div></div>
+  <div class="kpi-card green"><div class="kpi-label">✅ 已返工</div><div class="kpi-num" id="kpiClockedIn">—</div></div>
+  <div class="kpi-card yellow"><div class="kpi-label">⏳ 已收工</div><div class="kpi-num" id="kpiClockedOut">—</div></div>
+  <div class="kpi-card red"><div class="kpi-label">❌ 未打卡</div><div class="kpi-num" id="kpiNoPhoto">—</div></div>
+</div>
+
+<div class="controls">
+  <button class="active" data-view="estate" onclick="switchView('estate')">🏢 按邨檢視</button>
+  <button data-view="calendar" onclick="switchView('calendar')">📅 編更日曆</button>
+  <select id="estateFilter" onchange="renderDashboard()">
+    <option value="all">全部邨</option>
+  </select>
+  <span style="flex:1"></span>
+  <span style="color:var(--text2);font-size:0.85rem" id="attendanceRate"></span>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>已打卡</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>部分打卡</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>未打卡</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--gray);opacity:0.4"></span>休息</span>
+</div>
+
+<div id="estateView" class="estate-grid"></div>
+
+<div id="calendarView" class="calendar-view"></div>
+
+<div class="last-updated" id="lastUpdated">載入中...</div>
+
+<script>
+const DATA_URL = 'data.json';
+let allData = null;
+let currentView = 'estate';
+
+async function loadData() {
+  try {
+    const resp = await fetch(DATA_URL + '?t=' + Date.now());
+    allData = await resp.json();
+    init();
+  } catch(e) {
+    if (!allData) {
+      document.getElementById('estateView').innerHTML = 
+        `<div class="empty-state"><div class="big">📡</div><p>無法載入數據<br><span style="font-size:0.8rem">請確認 data.json 已正確生成</span></p></div>`;
+      document.getElementById('lastUpdated').textContent = '⚠️ 數據載入失敗: ' + e.message;
+    }
+  }
+}
+
+function init() {
+  const now = new Date();
+  const ds = now.toLocaleDateString('zh-HK', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+  document.getElementById('currentDate').textContent = '📅 ' + ds;
+
+  if (allData.lastUpdated) {
+    document.getElementById('lastUpdated').textContent = '🔄 最後更新: ' + allData.lastUpdated;
+  }
+
+  // Populate estate filter
+  const sel = document.getElementById('estateFilter');
+  allData.estates.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name;
+    opt.textContent = e.name + ' (' + e.workers.length + '人)';
+    sel.appendChild(opt);
+  });
+  document.getElementById('estateCount').textContent = '🏘 ' + allData.estates.length + ' 條邨';
+
+  renderDashboard();
+}
+
+function getDayData() {
+  if (!allData) return null;
+  // Try today first, fall back to latest available day
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+  const todayKey = yyyy + '-' + mm + '-' + dd;
+
+  if (allData.days && allData.days[todayKey]) {
+    return { date: todayKey, data: allData.days[todayKey] };
+  }
+  // Fall back to latest
+  const keys = Object.keys(allData.days || {}).sort();
+  if (keys.length > 0) {
+    const lastKey = keys[keys.length-1];
+    return { date: lastKey, data: allData.days[lastKey], isFallback: true };
+  }
+  return null;
+}
+
+function calcWorkerStatus(worker) {
+  if (worker.shift === 'H' || worker.shift === 'P' || worker.shift === 'S') return 'rest';
+  if (worker.clockIn && worker.clockOut) return 'ok';
+  if (worker.clockIn || worker.clockOut) return 'partial';
+  return 'missing';
+}
+
+function renderDashboard() {
+  const dayInfo = getDayData();
+  if (!dayInfo) {
+    document.getElementById('estateView').innerHTML = 
+      `<div class="empty-state"><div class="big">📅</div><p>今日未有編更資料</p></div>`;
+    return;
+  }
+
+  const filter = document.getElementById('estateFilter').value;
+  const dayData = dayInfo.data;
+  const estates = filter === 'all' ? dayData.estates : dayData.estates.filter(e => e.name === filter);
+
+  // Use top-level stats if available
+  const stats = allData;
+  document.getElementById('kpiTotal').textContent = stats.totalWorkers || 0;
+  document.getElementById('kpiClockedIn').textContent = stats.clockedIn || 0;
+  document.getElementById('kpiClockedOut').textContent = stats.clockedOut || 0;
+  document.getElementById('kpiNoPhoto').textContent = stats.noPhoto || 0;
+
+  const rate = stats.attendanceRate || 0;
+  document.getElementById('attendanceRate').textContent = `📊 出席率 ${rate}% (${stats.hasPhoto||0}/${stats.totalWorkers||0})`;
+
+  let html = '';
+    estates.forEach(estate => {
+      const workers = estate.workers || [];
+      let eIn = 0, eOut = 0, eNone = 0, eRest = 0;
+
+      let rows = '';
+      workers.forEach(w => {
+        const hasIn = !!w.clockIn;
+        const hasOut = !!w.clockOut;
+        const isRest = ['H','P','S','—'].includes(w.shift);
+  
+        if (isRest) { eRest++; }
+        else if (hasIn && hasOut) { eIn++; eOut++; }
+        else if (hasIn) { eIn++; }
+        else if (hasOut) { eOut++; }
+        else { eNone++; }
+
+        let statusClass = isRest ? 'rest' : (hasIn && hasOut ? 'ok' : (hasIn || hasOut ? 'partial' : 'missing'));
+
+        rows += `<div class="worker-row">
+          <div class="name">${w.chineseName || w.name}</div>
+          <div class="shift ${w.shift === 'H' ? 'H' : (w.shift || '—')}">${w.shift || '—'}</div>
+          <div class="time">${w.clockIn || '—'}</div>
+          <div class="time">${w.clockOut || '—'}</div>
+          <div class="status ${statusClass}" title="${
+            statusClass === 'ok' ? '已返工+收工' : statusClass === 'partial' ? '只打咗一次卡' : statusClass === 'rest' ? '休息' : '未打卡'
+          }"></div>
+        </div>`;
+      });
+
+      const eTotal = workers.length - eRest;
+      let badge = 'ok', badgeText = `✅ ${eIn}/${eTotal}`;
+      if (eNone > 0 && eIn === 0) { badge = 'bad'; badgeText = `🔴 0/${eTotal}`; }
+      else if (eNone > 0) { badge = 'warn'; badgeText = `⚠️ ${eIn}/${eTotal}`; }
+
+      html += `<div class="estate-card">
+        <div class="estate-header">
+          <span>${estate.name}</span>
+          <span class="badge ${badge}">${badgeText}</span>
+        </div>
+        <div class="worker-row" style="background:rgba(255,255,255,0.02);font-size:0.75rem;color:var(--text2);grid-template-columns:1fr 50px 90px 90px 50px;border-bottom:1px solid var(--border);padding:6px 16px">
+          <span>工人</span><span>更</span><span>返工</span><span>收工</span><span></span>
+        </div>
+        ${rows}
+      </div>`;
+    });
+
+    document.getElementById('estateView').innerHTML = html;
+
+    if (dayInfo.isFallback) {
+      document.getElementById('currentDate').textContent += ` (顯示: ${dayInfo.date})`;
+    }
+  }
+
+function switchView(view) {
+  currentView = view;
+  document.querySelectorAll('.controls button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.getElementById('estateView').style.display = view === 'estate' ? 'grid' : 'none';
+  document.getElementById('calendarView').style.display = view === 'calendar' ? 'block' : 'none';
+  if (view === 'calendar' && allData) renderCalendar();
+}
+
+function renderCalendar() {
+  const dayInfo = getDayData();
+  if (!dayInfo) return;
+
+  const dayData = dayInfo.data;
+  let html = '<table><thead><tr><th>邨</th><th>工人</th>';
+  for (let d = 1; d <= 31; d++) html += `<th>${d}</th>`;
+  html += '</tr></thead><tbody>';
+
+  dayData.estates.forEach(estate => {
+    const workers = estate.workers || [];
+    workers.forEach((w, wi) => {
+      const shifts = w.monthlyShifts || [];
+      html += `<tr>`;
+      if (wi === 0) html += `<td class="estate-name" rowspan="${workers.length}">${estate.name}</td>`;
+      html += `<td style="text-align:left;padding-left:8px">${w.chineseName || w.name}</td>`;
+      for (let d = 0; d < 31; d++) {
+        const s = shifts[d] || '';
+        const cls = s === 'H' || s === 'P' || s === 'S' ? 'H' : s;
+        html += `<td class="shift ${cls}">${s || ''}</td>`;
+      }
+      html += '</tr>';
+    });
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('calendarView').innerHTML = html;
+}
+
+loadData();
+</script>
+</body>
+</html>
