@@ -120,7 +120,7 @@
   .badge.bad { background: rgba(239,68,68,0.2); color: var(--red); }
 
   .worker-row {
-    display: grid; grid-template-columns: 1fr 50px 90px 90px 50px;
+    display: grid; grid-template-columns: 1fr 50px 90px 90px 25px 25px;
     padding: 10px 16px; align-items: center; gap: 8px;
     border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.85rem;
   }
@@ -157,7 +157,8 @@
     width: 12px; height: 12px; border-radius: 50%; justify-self: center;
   }
   .status.ok { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
-  .status.partial { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4); }
+  .status.checkin { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+  .status.checkout { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4); }
   .status.missing { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
   .status.rest { background: var(--gray); opacity: 0.4; }
 
@@ -184,7 +185,7 @@
 
   @media (max-width: 640px) {
     .estate-grid { grid-template-columns: 1fr; }
-    .worker-row { grid-template-columns: 1fr 40px 70px 70px 30px; font-size: 0.78rem; }
+    .worker-row { grid-template-columns: 1fr 40px 70px 70px 20px 20px; font-size: 0.78rem; }
     .date-nav .date-display { min-width: auto; }
   }
 
@@ -239,8 +240,8 @@
 
 <div class="legend-section" style="margin-bottom:16px">
   <div class="legend" id="statusLegend">
-    <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>已打卡</span>
-    <span class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>部分打卡</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>返工 🟢</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>收工 🟡</span>
     <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>未打卡</span>
     <span class="legend-item"><span class="legend-dot" style="background:var(--gray);opacity:0.4"></span>休息</span>
   </div>
@@ -443,8 +444,9 @@ function getDayData() {
 
 function calcWorkerStatus(worker) {
   if (worker.shift === 'H' || worker.shift === 'P' || worker.shift === 'S') return 'rest';
-  if (worker.clockIn && worker.clockOut) return 'ok';
-  if (worker.clockIn || worker.clockOut) return 'partial';
+  // 🟢 check-in = green, 🟡 check-out = yellow, 🔴 no photo = red
+  if (worker.clockIn) return 'checkin';
+  if (worker.clockOut) return 'checkout';
   return 'missing';
 }
 
@@ -482,22 +484,20 @@ function renderDashboard() {
         const isRest = ['H','P','S','—'].includes(w.shift);
   
         if (isRest) { eRest++; }
-        else if (hasIn && hasOut) { eIn++; eOut++; }
-        else if (hasIn) { eIn++; }
-        else if (hasOut) { eOut++; }
-        else { eNone++; }
-
-        let statusClass = isRest ? 'rest' : (hasIn && hasOut ? 'ok' : (hasIn || hasOut ? 'partial' : 'missing'));
+        else {
+          if (hasIn) eIn++;
+          if (hasOut) eOut++;
+          if (!hasIn && !hasOut) eNone++;
+        }
 
         rows += `<div class=\"worker-row\">
-          <div class=\"name\">${w.chineseName || w.name}</div>
-          <div class=\"shift ${(w.shift||'—').replace(/[.\s]/g, '')}\">${w.shift || '—'}</div>
-          <div class=\"time\">${w.clockIn || '—'}</div>
-          <div class=\"time\">${w.clockOut || '—'}</div>
-          <div class=\"status ${statusClass}\" title="${
-            statusClass === 'ok' ? '已返工+收工' : statusClass === 'partial' ? '只打咗一次卡' : statusClass === 'rest' ? '休息' : '未打卡'
-          }"></div>
-        </div>`;
+                  <div class=\"name\">${w.chineseName || w.name}</div>
+                  <div class=\"shift ${(w.shift||'—').replace(/[.\s]/g, '')}\">${w.shift || '—'}</div>
+                  <div class=\"time\">${w.clockIn || '—'}</div>
+                  <div class=\"time\">${w.clockOut || '—'}</div>
+                  <div class=\"status ${hasIn ? 'checkin' : (isRest ? 'rest' : 'missing')}\" title=\"${hasIn ? '已返工' : (isRest ? '休息' : '未返工')}\"></div>
+                  <div class=\"status ${hasOut ? 'checkout' : (isRest ? 'rest' : 'missing')}\" title=\"${hasOut ? '已收工' : (isRest ? '休息' : '未收工')}\"></div>
+                </div>`;
       });
 
       const eTotal = workers.length - eRest;
@@ -523,8 +523,8 @@ function renderDashboard() {
                   })()}
                   </div>
                 </div>
-        <div class="worker-row" style="background:rgba(255,255,255,0.02);font-size:0.75rem;color:var(--text2);grid-template-columns:1fr 50px 90px 90px 50px;border-bottom:1px solid var(--border);padding:6px 16px">
-          <span>工人</span><span>更</span><span>返工</span><span>收工</span><span></span>
+        <div class="worker-row" style="background:rgba(255,255,255,0.02);font-size:0.75rem;color:var(--text2);grid-template-columns:1fr 50px 90px 90px 25px 25px;border-bottom:1px solid var(--border);padding:6px 16px">
+          <span>工人</span><span>更</span><span>返工</span><span>收工</span><span style="font-size:0.7rem;text-align:center">返</span><span style="font-size:0.7rem;text-align:center">收</span>
         </div>
         ${rows}
       </div>`;

@@ -183,13 +183,21 @@ def get_today_date():
     hk_now = utc_now + HK_TZ
     return hk_now.strftime('%Y-%m-%d'), hk_now.day
 
-def build_dashboard_data():
+def build_dashboard_data(target_date=None):
+    """Build dashboard data for a specific date (or today if None)"""
     phone_map, estate_worker_map, contact_wb = load_phone_map()
     lid_map = load_lid_map()
     records = load_attendance()
     roster, estate_info, roster_wb = load_roster()
     
-    today_str, today_day = get_today_date()
+    today_str, _ = get_today_date()
+    target_str = target_date if target_date else today_str
+    # Parse target date to get day-of-month
+    try:
+        target_dt = datetime.strptime(target_str, '%Y-%m-%d')
+        target_day = target_dt.day
+    except:
+        target_day = 1
     
     # Build worker mapping from lid → worker info
     # First invert phone_map: phone → (staff_no, chinese_name, estate)
@@ -205,10 +213,10 @@ def build_dashboard_data():
         if ename:
             name_to_estate[ename.lower()] = estate
     
-    # Group attendance records by estate for today
-    today_records = [r for r in records if r.get('date') == today_str and r.get('hasPhoto')]
+    # Group attendance records for target date
+    today_records = [r for r in records if r.get('date') == target_str and r.get('hasPhoto')]
     
-    # Group photos by sender lid for today
+    # Group photos by sender lid
     sender_photos = defaultdict(list)
     for r in today_records:
         sender_photos[r['sender']].append(r)
@@ -224,7 +232,7 @@ def build_dashboard_data():
         if worker:
             lid_worker[lid] = worker
     
-    # Build estate data for today
+    # Build estate data for target date
     estates_data = []
     
     # Process each estate from roster
@@ -233,7 +241,7 @@ def build_dashboard_data():
         
         worker_list = []
         for wname, shifts in workers.items():
-            today_shift = shifts.get(today_day, '')
+            today_shift = shifts.get(target_day, '')
             
             # Find worker in contact list by name
             worker_info = None
@@ -362,7 +370,7 @@ def build_dashboard_data():
     
     output = {
         'lastUpdated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
-        'date': today_str,
+        'date': target_str,
         'totalWorkers': total_workers,
         'clockedIn': clocked_in,
         'clockedOut': clocked_out,
@@ -376,8 +384,8 @@ def build_dashboard_data():
             'workers': e['workers'],
         } for e in estates_data],
         'days': {
-            today_str: {
-                'date': today_str,
+            target_str: {
+                'date': target_str,
                 'estates': [{
                     'name': e['name'],
                     'shiftDefs': e['shiftDefs'],
@@ -395,11 +403,21 @@ def build_dashboard_data():
         } for e in estates_data], key=lambda e: e['name']),
     }
     
-    with open(OUTPUT_PATH, 'w') as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    output_dir = os.path.dirname(OUTPUT_PATH)
     
-    print(f"✅ Dashboard data generated: {OUTPUT_PATH}")
-    print(f"   Date: {today_str}")
+    if target_date:
+        # Historical snapshot: save as data-YYYY-MM-DD.json
+        snapshot_path = os.path.join(output_dir, f'data-{target_str}.json')
+        with open(snapshot_path, 'w') as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+        print(f"📅 Historical data saved: {snapshot_path}")
+    else:
+        # Today's data: save to main data.json
+        with open(OUTPUT_PATH, 'w') as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+        print(f"✅ Dashboard data generated: {OUTPUT_PATH}")
+    
+    print(f"   Date: {target_str}")
     print(f"   Total workers: {total_workers}")
     print(f"   Clocked-in: {clocked_in} | Clocked-out: {clocked_out} | No photo: {no_photo}")
     print(f"   Has any photo: {has_any_photo} / {total_workers}")
@@ -407,5 +425,31 @@ def build_dashboard_data():
     print(f"   Estates in data: {len(estates_data)}")
     return output
 
-if __name__ == '__main__':
+def build_all_dates():
+    """Generate dashboard data for all available dates"""
+    # First, generate today's data
+    print("=== Today's data ===")
     build_dashboard_data()
+    
+    # Scan attendance log for all unique dates
+    try:
+        with open(LOG_PATH) as f:
+            records = json.load(f)
+    except:
+        records = []
+    
+    dates = sorted(set(r['date'] for r in records if 'date' in r))
+    print(f"\n=== Historical dates found: {dates} ===")
+    
+    for d in dates:
+        build_dashboard_data(target_date=d)
+    
+    # Update dates.json index
+    output_dir = os.path.dirname(OUTPUT_PATH)
+    dates_path = os.path.join(output_dir, 'dates.json')
+    with open(dates_path, 'w') as f:
+        json.dump({'dates': dates, 'latest': dates[-1] if dates else ''}, f, ensure_ascii=False, indent=2)
+    print(f"\n📋 Dates index saved: {dates_path}")
+
+if __name__ == '__main__':
+    build_all_dates()
