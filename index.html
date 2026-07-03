@@ -97,6 +97,24 @@
   .shift.C { color: #f472b6; } .shift.AB { color: #fbbf24; }
   .shift.BC { color: #fb923c; } .shift.D { color: #a78bfa; }
   .shift.H { color: var(--gray); } .shift.P { color: var(--gray); }
+  .shift.N { color: #f87171; } .shift.S { color: #64748b; }
+  .shift.A1 { color: #60a5fa; } .shift.A6 { color: #38bdf8; }
+  .shift.B1 { color: #34d399; }
+  .shift.C4 { color: #f472b6; } .shift.C5 { color: #e879f9; }
+  .shift.C6 { color: #c084fc; }
+  
+  .shift-chip {
+    display: inline-block; padding: 1px 8px; border-radius: 4px;
+    font-weight: 700; font-size: 0.8rem; margin: 0 2px;
+  }
+  
+  .shift-legend-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .shift-estate-block { margin-bottom: 8px; }
+  .shift-estate-name { font-weight: 600; color: var(--text); margin-bottom: 4px; font-size: 0.85rem; }
+  .shift-def-row { display: inline-flex; align-items: center; gap: 4px; margin: 2px 4px 2px 0; }
   .worker-row .time { text-align: center; font-size: 0.8rem; color: var(--text2); font-variant-numeric: tabular-nums; }
   .worker-row .status {
     width: 12px; height: 12px; border-radius: 50%; justify-self: center;
@@ -165,11 +183,17 @@
   <span style="color:var(--text2);font-size:0.85rem" id="attendanceRate"></span>
 </div>
 
-<div class="legend">
-  <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>已打卡</span>
-  <span class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>部分打卡</span>
-  <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>未打卡</span>
-  <span class="legend-item"><span class="legend-dot" style="background:var(--gray);opacity:0.4"></span>休息</span>
+<div class="legend-section" style="margin-bottom:16px">
+  <div class="legend" id="statusLegend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>已打卡</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>部分打卡</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>未打卡</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--gray);opacity:0.4"></span>休息</span>
+  </div>
+  <details id="shiftLegendDetails" style="margin-top:8px;font-size:0.8rem;color:var(--text2);cursor:pointer">
+    <summary style="font-weight:600;color:var(--text)">📖 更期對照表 (點擊展開)</summary>
+    <div id="shiftLegendContent" style="margin-top:8px;padding:12px;background:var(--card);border-radius:8px;border:1px solid var(--border)"></div>
+  </details>
 </div>
 
 <div id="estateView" class="estate-grid"></div>
@@ -217,6 +241,7 @@ function init() {
   document.getElementById('estateCount').textContent = '🏘 ' + allData.estates.length + ' 條邨';
 
   renderDashboard();
+  renderShiftLegend();
 }
 
 function getDayData() {
@@ -290,7 +315,7 @@ function renderDashboard() {
 
         rows += `<div class="worker-row">
           <div class="name">${w.chineseName || w.name}</div>
-          <div class="shift ${w.shift === 'H' ? 'H' : (w.shift || '—')}">${w.shift || '—'}</div>
+          <div class="shift ${(w.shift||'—').replace(/[.\s]/g, '')}">${w.shift || '—'}</div>
           <div class="time">${w.clockIn || '—'}</div>
           <div class="time">${w.clockOut || '—'}</div>
           <div class="status ${statusClass}" title="${
@@ -308,6 +333,16 @@ function renderDashboard() {
         <div class="estate-header">
           <span>${estate.name}</span>
           <span class="badge ${badge}">${badgeText}</span>
+        </div>
+        <div style="padding:4px 16px 2px;font-size:0.7rem;color:var(--text2);display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--border)" title="按邨更期對照">
+          ${(() => {
+            const edefs = allData.shiftDefinitions ? allData.shiftDefinitions[estate.name] : null;
+            if (!edefs) return '';
+            return Object.keys(edefs).sort().map(c => {
+              const cls = c.replace(/[.\s]/g, '');
+              return `<span class="shift ${cls}" style="margin-right:4px">${c}:${edefs[c]}</span>`;
+            }).join('');
+          })()}
         </div>
         <div class="worker-row" style="background:rgba(255,255,255,0.02);font-size:0.75rem;color:var(--text2);grid-template-columns:1fr 50px 90px 90px 50px;border-bottom:1px solid var(--border);padding:6px 16px">
           <span>工人</span><span>更</span><span>返工</span><span>收工</span><span></span>
@@ -349,7 +384,7 @@ function renderCalendar() {
       html += `<td style="text-align:left;padding-left:8px">${w.chineseName || w.name}</td>`;
       for (let d = 0; d < 31; d++) {
         const s = shifts[d] || '';
-        const cls = s === 'H' || s === 'P' || s === 'S' ? 'H' : s;
+        const cls = s === 'H' || s === 'P' || s === 'S' ? 'H' : s.replace(/[.\s]/g, '');
         html += `<td class="shift ${cls}">${s || ''}</td>`;
       }
       html += '</tr>';
@@ -358,6 +393,38 @@ function renderCalendar() {
 
   html += '</tbody></table>';
   document.getElementById('calendarView').innerHTML = html;
+}
+
+function renderShiftLegend() {
+  const container = document.getElementById('shiftLegendContent');
+  if (!allData || !allData.shiftDefinitions) {
+    container.innerHTML = '<span style="color:var(--text2)">暫無更期資料</span>';
+    return;
+  }
+  
+  const defs = allData.shiftDefinitions;
+  let html = '<div class="shift-legend-grid">';
+  
+  Object.keys(defs).sort().forEach(estate => {
+    const pairs = defs[estate];
+    const codes = Object.keys(pairs).sort();
+    
+    html += `<div class="shift-estate-block">
+      <div class="shift-estate-name">${estate}</div>`;
+    
+    codes.forEach(code => {
+      const cls = code.replace(/[.\s]/g, '');
+      html += `<span class="shift-def-row">
+        <span class="shift-chip shift ${cls}">${code}</span>
+        <span style="color:var(--text2)">${pairs[code]}</span>
+      </span>`;
+    });
+    
+    html += '</div>';
+  });
+  
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 loadData();

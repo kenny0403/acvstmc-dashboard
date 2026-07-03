@@ -122,6 +122,38 @@ def load_roster():
     
     return roster, estate_info, wb
 
+# === Load shift definitions for all estates ===
+def load_shift_definitions():
+    """Read shift definitions from roster Excel and return structured map"""
+    try:
+        wb = openpyxl.load_workbook(ROSTER_PATH, data_only=True)
+    except:
+        return {}
+    
+    defs_map = {}
+    for sname in wb.sheetnames:
+        if sname in ('目錄', '司機'):
+            continue
+        ws = wb[sname]
+        defs_text = str(ws.cell(2, 1).value or '')
+        # Parse '更期: A:06:30-16:30 B:08:00-18:00 ...'
+        pairs = {}
+        text = defs_text.replace('更期:', '').strip()
+        parts = text.split()
+        for p in parts:
+            if ':' in p:
+                code, _, time = p.partition(':')
+                if code and time and code.isalnum():
+                    pairs[code] = time
+        
+        # Map sheet name to display name
+        display = ROSTER_TO_ESTATE.get(sname, sname)
+        if pairs:
+            defs_map[display] = pairs
+    
+    wb.close()
+    return defs_map
+
 # === STEP 4: Estate name mapping ===
 ROSTER_TO_ESTATE = {
     '房署總部1,2座': '房委會(1,2座)',
@@ -325,6 +357,9 @@ def build_dashboard_data():
     # Actually simpler: has_any_photo = total_workers - no_photo
     has_any_photo = total_workers - no_photo
     
+    # === Build global shift definitions ===
+    shift_definitions = load_shift_definitions()
+    
     output = {
         'lastUpdated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
         'date': today_str,
@@ -334,6 +369,7 @@ def build_dashboard_data():
         'noPhoto': no_photo,
         'hasPhoto': has_any_photo,
         'attendanceRate': round(has_any_photo / total_workers * 100, 1) if total_workers > 0 else 0,
+        'shiftDefinitions': shift_definitions,
         'estates': [{
             'name': e['name'],
             'shiftDefs': e['shiftDefs'],
