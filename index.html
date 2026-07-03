@@ -162,7 +162,19 @@
   .status.missing { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
   .status.rest { background: var(--gray); opacity: 0.4; }
 
-  .empty-state { padding: 40px; text-align: center; color: var(--text2); }
+  .worker-row.alert {
+    border-left: 3px solid var(--red);
+    background: rgba(239,68,68,0.06);
+  }
+  .alert-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--red); font-size: 1rem; margin-left: 6px;
+    animation: alert-pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes alert-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.15); }
+  }
   .empty-state .big { font-size: 3rem; margin-bottom: 12px; }
 
   .calendar-view {
@@ -226,6 +238,7 @@
   <div class="kpi-card green"><div class="kpi-label">✅ 已返工</div><div class="kpi-num" id="kpiClockedIn">—</div></div>
   <div class="kpi-card yellow"><div class="kpi-label">⏳ 已收工</div><div class="kpi-num" id="kpiClockedOut">—</div></div>
   <div class="kpi-card red"><div class="kpi-label">❌ 未打卡</div><div class="kpi-num" id="kpiNoPhoto">—</div></div>
+  <div class="kpi-card" style="border-color:var(--red);background:rgba(239,68,68,0.08);"><div class="kpi-label">🚨 未返工</div><div class="kpi-num" style="color:var(--red)" id="kpiAlert">—</div></div>
 </div>
 
 <div class="controls">
@@ -468,6 +481,7 @@ function renderDashboard() {
   document.getElementById('kpiClockedIn').textContent = stats.clockedIn || 0;
   document.getElementById('kpiClockedOut').textContent = stats.clockedOut || 0;
   document.getElementById('kpiNoPhoto').textContent = stats.noPhoto || 0;
+  document.getElementById('kpiAlert').textContent = stats.alertCount || 0;
 
   const rate = stats.attendanceRate || 0;
   document.getElementById('attendanceRate').textContent = `📊 出席率 ${rate}% (${stats.hasPhoto||0}/${stats.totalWorkers||0})`;
@@ -475,7 +489,7 @@ function renderDashboard() {
   let html = '';
     estates.forEach(estate => {
       const workers = estate.workers || [];
-      let eIn = 0, eOut = 0, eNone = 0, eRest = 0;
+      let eIn = 0, eOut = 0, eNone = 0, eRest = 0, eAlert = 0;
 
       let rows = '';
       workers.forEach(w => {
@@ -488,10 +502,11 @@ function renderDashboard() {
           if (hasIn) eIn++;
           if (hasOut) eOut++;
           if (!hasIn && !hasOut) eNone++;
+          if (w.alertNoCheckIn) eAlert++;
         }
 
-        rows += `<div class=\"worker-row\">
-                  <div class=\"name\">${w.chineseName || w.name}</div>
+        rows += `<div class="worker-row${w.alertNoCheckIn ? ' alert' : ''}">
+                  <div class="name">${w.chineseName || w.name}${w.alertNoCheckIn ? '<span class="alert-icon" title="更表要返工但未交打卡相">🚨</span>' : ''}</div>
                   <div class=\"shift ${(w.shift||'—').replace(/[.\s]/g, '')}\">${w.shift || '—'}</div>
                   <div class=\"time\">${w.clockIn || '—'}</div>
                   <div class=\"time\">${w.clockOut || '—'}</div>
@@ -504,6 +519,11 @@ function renderDashboard() {
       let badge = 'ok', badgeText = `✅ ${eIn}/${eTotal}`;
       if (eNone > 0 && eIn === 0) { badge = 'bad'; badgeText = `🔴 0/${eTotal}`; }
       else if (eNone > 0) { badge = 'warn'; badgeText = `⚠️ ${eIn}/${eTotal}`; }
+      // Append alert count to badge if any
+      if (eAlert > 0) {
+        badge = eIn === 0 ? 'bad' : 'bad';
+        badgeText += ` 🚨${eAlert}`;
+      }
 
       html += `<div class="estate-card">
         <div class="estate-header">

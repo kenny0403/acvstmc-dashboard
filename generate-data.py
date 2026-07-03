@@ -278,6 +278,10 @@ def build_dashboard_data(target_date=None):
             
             sno = (worker_info or {}).get('staff_no', '')
             
+            # Alert: roster says work but no check-in photo
+            is_rest_day = today_shift in ('H', 'P', 'S', '—', '')
+            alert_no_checkin = not is_rest_day and not clock_in
+            
             worker_list.append({
                 'name': wname,
                 'chineseName': cname,
@@ -286,6 +290,7 @@ def build_dashboard_data(target_date=None):
                 'clockIn': clock_in,
                 'clockOut': clock_out,
                 'monthlyShifts': monthly_shifts,
+                'alertNoCheckIn': alert_no_checkin,
             })
         
         estates_data.append({
@@ -346,11 +351,14 @@ def build_dashboard_data(target_date=None):
     clocked_in = 0  # has clock-in
     clocked_out = 0  # has clock-out
     no_photo = 0  # no photos at all
+    alert_count = 0  # roster says work but no check-in
     for estate in estates_data:
         for w in estate['workers']:
             if w['shift'] in ('H', 'P', 'S', '—'):
                 continue  # rest day or unknown
             total_workers += 1
+            if w.get('alertNoCheckIn'):
+                alert_count += 1
             if w['clockIn'] and w['clockOut']:
                 clocked_in += 1
                 clocked_out += 1
@@ -376,6 +384,7 @@ def build_dashboard_data(target_date=None):
         'clockedOut': clocked_out,
         'noPhoto': no_photo,
         'hasPhoto': has_any_photo,
+        'alertCount': alert_count,
         'attendanceRate': round(has_any_photo / total_workers * 100, 1) if total_workers > 0 else 0,
         'shiftDefinitions': shift_definitions,
         'estates': [{
@@ -399,6 +408,7 @@ def build_dashboard_data(target_date=None):
             'clockedIn': len([w for w in e['workers'] if w['clockIn'] and w['shift'] not in ('H', 'P', 'S', '—')]),
             'clockedOut': len([w for w in e['workers'] if w['clockOut'] and w['shift'] not in ('H', 'P', 'S', '—')]),
             'noPhoto': len([w for w in e['workers'] if not w['clockIn'] and not w['clockOut'] and w['shift'] not in ('H', 'P', 'S', '—')]),
+            'alert': len([w for w in e['workers'] if w.get('alertNoCheckIn')]),
             'rest': len([w for w in e['workers'] if w['shift'] in ('H', 'P', 'S', '—')]),
         } for e in estates_data], key=lambda e: e['name']),
     }
