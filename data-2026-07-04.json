@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-07-03 19:01 UTC",
+  "lastUpdated": "2026-07-04 03:11 UTC",
   "date": "2026-07-04",
   "totalWorkers": 53,
-  "clockedIn": 1,
+  "clockedIn": 29,
   "clockedOut": 0,
-  "noPhoto": 52,
-  "hasPhoto": 1,
-  "alertCount": 52,
-  "attendanceRate": 1.9,
+  "noPhoto": 24,
+  "hasPhoto": 29,
+  "alertCount": 24,
+  "attendanceRate": 54.7,
   "shiftDefinitions": {
     "房委會(1,2座)": {
       "A": "06:30-16:30",
@@ -153,7 +153,7 @@
           "chineseName": "周國興",
           "staffNo": "W3017",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "06:16",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -188,14 +188,14 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "蔡亞泉",
           "chineseName": "蔡亞泉",
           "staffNo": "W3018",
           "shift": "A",
-          "clockIn": "",
+          "clockIn": "05:48",
           "clockOut": "",
           "monthlyShifts": [
             "A",
@@ -230,14 +230,14 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "吳友志",
           "chineseName": "吳友志",
           "staffNo": "W3019",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:53",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -272,14 +272,14 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "李欽華",
           "chineseName": "李欽華",
           "staffNo": "W3027",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:42",
           "clockOut": "",
           "monthlyShifts": [
             "A",
@@ -314,14 +314,14 @@
             "B",
             "H"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "黃杜彪",
           "chineseName": "黃杜彪",
           "staffNo": "W3056",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:41",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -356,7 +356,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         }
       ]
     },
@@ -411,7 +411,7 @@
           "chineseName": "馬英強",
           "staffNo": "W3016",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "08:00",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -446,7 +446,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "許作權",
@@ -543,7 +543,7 @@
           "chineseName": "郭兆雄",
           "staffNo": "W3015",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "06:17",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -578,7 +578,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "麥志偉",
@@ -627,7 +627,7 @@
           "chineseName": "馬家莊",
           "staffNo": "W3052",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:21",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -662,7 +662,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "吳綺文",
@@ -717,7 +717,7 @@
           "chineseName": "蔡其民",
           "staffNo": "W3048",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:29",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -752,7 +752,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "蔡錦治",
@@ -843,7 +843,7 @@
           "chineseName": "黎永銳",
           "staffNo": "W3047",
           "shift": "C",
-          "clockIn": "",
+          "clockIn": "06:13",
           "clockOut": "",
           "monthlyShifts": [
             "C",
@@ -878,7 +878,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         }
       ]
     },
@@ -891,7 +891,7 @@
           "chineseName": "黎偉培",
           "staffNo": "W3030",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "07:49",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -926,7 +926,7 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "伍藝甜",
@@ -975,7 +975,7 @@
           "chineseName": "陳建安",
           "staffNo": "W3040",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "07:55",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -1010,14 +1010,14 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "鄧建邦",
           "chineseName": "鄧建邦",
           "staffNo": "W3041",
           "shift": "C",
-          "clockIn": "",
+          "clockIn": "10:42",
           "clockOut": "",
           "monthlyShifts": [
             "C",
@@ -1052,7 +1052,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "陳浩昌",
@@ -1107,7 +1107,7 @@
           "chineseName": "劉翠玲",
           "staffNo": "W3020",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "06:22",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -1142,14 +1142,14 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "周茶花",
           "chineseName": "周茶花",
           "staffNo": "W3007",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:50",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -1184,7 +1184,7 @@
             "B",
             "H"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "羅紀文",
@@ -1239,7 +1239,7 @@
           "chineseName": "陳耀球",
           "staffNo": "W3031",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:48",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -1274,14 +1274,14 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "周伯昌",
           "chineseName": "周伯昌",
           "staffNo": "W3025",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "05:49",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -1316,7 +1316,7 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "陳棟柳",
@@ -1413,7 +1413,7 @@
           "chineseName": "朱順培",
           "staffNo": "W3034",
           "shift": "A",
-          "clockIn": "",
+          "clockIn": "05:49",
           "clockOut": "",
           "monthlyShifts": [
             "A",
@@ -1448,7 +1448,7 @@
             "H",
             "H"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "邵佩連",
@@ -1545,7 +1545,7 @@
           "chineseName": "曹國強",
           "staffNo": "W3044",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "06:17",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -1580,7 +1580,7 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "任金香",
@@ -1635,7 +1635,7 @@
           "chineseName": "張秋全",
           "staffNo": "W3004",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:55",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -1670,14 +1670,14 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "陳鳳嬌",
           "chineseName": "陳鳳嬌",
           "staffNo": "W3010",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "06:19",
           "clockOut": "",
           "monthlyShifts": [
             "A",
@@ -1712,7 +1712,7 @@
             "B",
             "H"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "呂嘉雄",
@@ -1851,7 +1851,7 @@
           "chineseName": "阮少燕",
           "staffNo": "W3028",
           "shift": "C",
-          "clockIn": "",
+          "clockIn": "07:51",
           "clockOut": "",
           "monthlyShifts": [
             "C",
@@ -1886,7 +1886,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "朱鳳英",
@@ -2031,7 +2031,7 @@
           "chineseName": "龔振聲",
           "staffNo": "W3003",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:47",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -2066,7 +2066,7 @@
             "BC",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "梁國英",
@@ -2115,7 +2115,7 @@
           "chineseName": "楊帶喜",
           "staffNo": "W3011",
           "shift": "A",
-          "clockIn": "",
+          "clockIn": "05:45",
           "clockOut": "",
           "monthlyShifts": [
             "A",
@@ -2150,7 +2150,7 @@
             "A",
             "H"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         }
       ]
     },
@@ -2163,7 +2163,7 @@
           "chineseName": "陳展戈",
           "staffNo": "W3005",
           "shift": "B",
-          "clockIn": "",
+          "clockIn": "07:51",
           "clockOut": "",
           "monthlyShifts": [
             "B",
@@ -2198,7 +2198,7 @@
             "B",
             "B"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "陳佩詩",
@@ -2295,7 +2295,7 @@
           "chineseName": "曾進賢",
           "staffNo": "W3021",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "06:48",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -2330,14 +2330,14 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "唐銘雄",
           "chineseName": "唐銘雄",
           "staffNo": "W3036",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "07:54",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -2372,14 +2372,14 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "沈嘉莉",
           "chineseName": "沈嘉莉",
           "staffNo": "W3037",
           "shift": "AB",
-          "clockIn": "",
+          "clockIn": "07:49",
           "clockOut": "",
           "monthlyShifts": [
             "AB",
@@ -2414,7 +2414,7 @@
             "AB",
             "AB"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "葉朗",
@@ -2516,7 +2516,7 @@
               "chineseName": "周國興",
               "staffNo": "W3017",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "06:16",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -2551,14 +2551,14 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "蔡亞泉",
               "chineseName": "蔡亞泉",
               "staffNo": "W3018",
               "shift": "A",
-              "clockIn": "",
+              "clockIn": "05:48",
               "clockOut": "",
               "monthlyShifts": [
                 "A",
@@ -2593,14 +2593,14 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "吳友志",
               "chineseName": "吳友志",
               "staffNo": "W3019",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:53",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -2635,14 +2635,14 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "李欽華",
               "chineseName": "李欽華",
               "staffNo": "W3027",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:42",
               "clockOut": "",
               "monthlyShifts": [
                 "A",
@@ -2677,14 +2677,14 @@
                 "B",
                 "H"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "黃杜彪",
               "chineseName": "黃杜彪",
               "staffNo": "W3056",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:41",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -2719,7 +2719,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             }
           ]
         },
@@ -2774,7 +2774,7 @@
               "chineseName": "馬英強",
               "staffNo": "W3016",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "08:00",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -2809,7 +2809,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "許作權",
@@ -2906,7 +2906,7 @@
               "chineseName": "郭兆雄",
               "staffNo": "W3015",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "06:17",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -2941,7 +2941,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "麥志偉",
@@ -2990,7 +2990,7 @@
               "chineseName": "馬家莊",
               "staffNo": "W3052",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:21",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -3025,7 +3025,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "吳綺文",
@@ -3080,7 +3080,7 @@
               "chineseName": "蔡其民",
               "staffNo": "W3048",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:29",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -3115,7 +3115,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "蔡錦治",
@@ -3206,7 +3206,7 @@
               "chineseName": "黎永銳",
               "staffNo": "W3047",
               "shift": "C",
-              "clockIn": "",
+              "clockIn": "06:13",
               "clockOut": "",
               "monthlyShifts": [
                 "C",
@@ -3241,7 +3241,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             }
           ]
         },
@@ -3254,7 +3254,7 @@
               "chineseName": "黎偉培",
               "staffNo": "W3030",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "07:49",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -3289,7 +3289,7 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "伍藝甜",
@@ -3338,7 +3338,7 @@
               "chineseName": "陳建安",
               "staffNo": "W3040",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "07:55",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -3373,14 +3373,14 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "鄧建邦",
               "chineseName": "鄧建邦",
               "staffNo": "W3041",
               "shift": "C",
-              "clockIn": "",
+              "clockIn": "10:42",
               "clockOut": "",
               "monthlyShifts": [
                 "C",
@@ -3415,7 +3415,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "陳浩昌",
@@ -3470,7 +3470,7 @@
               "chineseName": "劉翠玲",
               "staffNo": "W3020",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "06:22",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -3505,14 +3505,14 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "周茶花",
               "chineseName": "周茶花",
               "staffNo": "W3007",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:50",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -3547,7 +3547,7 @@
                 "B",
                 "H"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "羅紀文",
@@ -3602,7 +3602,7 @@
               "chineseName": "陳耀球",
               "staffNo": "W3031",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:48",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -3637,14 +3637,14 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "周伯昌",
               "chineseName": "周伯昌",
               "staffNo": "W3025",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "05:49",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -3679,7 +3679,7 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "陳棟柳",
@@ -3776,7 +3776,7 @@
               "chineseName": "朱順培",
               "staffNo": "W3034",
               "shift": "A",
-              "clockIn": "",
+              "clockIn": "05:49",
               "clockOut": "",
               "monthlyShifts": [
                 "A",
@@ -3811,7 +3811,7 @@
                 "H",
                 "H"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "邵佩連",
@@ -3908,7 +3908,7 @@
               "chineseName": "曹國強",
               "staffNo": "W3044",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "06:17",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -3943,7 +3943,7 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "任金香",
@@ -3998,7 +3998,7 @@
               "chineseName": "張秋全",
               "staffNo": "W3004",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:55",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -4033,14 +4033,14 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "陳鳳嬌",
               "chineseName": "陳鳳嬌",
               "staffNo": "W3010",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "06:19",
               "clockOut": "",
               "monthlyShifts": [
                 "A",
@@ -4075,7 +4075,7 @@
                 "B",
                 "H"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "呂嘉雄",
@@ -4214,7 +4214,7 @@
               "chineseName": "阮少燕",
               "staffNo": "W3028",
               "shift": "C",
-              "clockIn": "",
+              "clockIn": "07:51",
               "clockOut": "",
               "monthlyShifts": [
                 "C",
@@ -4249,7 +4249,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "朱鳳英",
@@ -4394,7 +4394,7 @@
               "chineseName": "龔振聲",
               "staffNo": "W3003",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:47",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -4429,7 +4429,7 @@
                 "BC",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "梁國英",
@@ -4478,7 +4478,7 @@
               "chineseName": "楊帶喜",
               "staffNo": "W3011",
               "shift": "A",
-              "clockIn": "",
+              "clockIn": "05:45",
               "clockOut": "",
               "monthlyShifts": [
                 "A",
@@ -4513,7 +4513,7 @@
                 "A",
                 "H"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             }
           ]
         },
@@ -4526,7 +4526,7 @@
               "chineseName": "陳展戈",
               "staffNo": "W3005",
               "shift": "B",
-              "clockIn": "",
+              "clockIn": "07:51",
               "clockOut": "",
               "monthlyShifts": [
                 "B",
@@ -4561,7 +4561,7 @@
                 "B",
                 "B"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "陳佩詩",
@@ -4658,7 +4658,7 @@
               "chineseName": "曾進賢",
               "staffNo": "W3021",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "06:48",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -4693,14 +4693,14 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "唐銘雄",
               "chineseName": "唐銘雄",
               "staffNo": "W3036",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "07:54",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -4735,14 +4735,14 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "沈嘉莉",
               "chineseName": "沈嘉莉",
               "staffNo": "W3037",
               "shift": "AB",
-              "clockIn": "",
+              "clockIn": "07:49",
               "clockOut": "",
               "monthlyShifts": [
                 "AB",
@@ -4777,7 +4777,7 @@
                 "AB",
                 "AB"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "葉朗",
@@ -4830,100 +4830,100 @@
     {
       "name": "房委會(1,2座)",
       "total": 6,
-      "clockedIn": 0,
+      "clockedIn": 5,
       "clockedOut": 0,
-      "noPhoto": 6,
-      "alert": 6,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "房委會(3座)",
       "total": 3,
-      "clockedIn": 0,
+      "clockedIn": 1,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 2,
+      "alert": 2,
       "rest": 0
     },
     {
       "name": "房署總部4座",
       "total": 5,
-      "clockedIn": 0,
+      "clockedIn": 2,
       "clockedOut": 0,
-      "noPhoto": 5,
-      "alert": 5,
+      "noPhoto": 3,
+      "alert": 3,
       "rest": 0
     },
     {
       "name": "晴朗商場",
       "total": 4,
-      "clockedIn": 0,
+      "clockedIn": 2,
       "clockedOut": 0,
-      "noPhoto": 4,
-      "alert": 4,
+      "noPhoto": 2,
+      "alert": 2,
       "rest": 0
     },
     {
       "name": "水泉澳",
       "total": 5,
-      "clockedIn": 0,
+      "clockedIn": 3,
       "clockedOut": 0,
-      "noPhoto": 5,
-      "alert": 5,
+      "noPhoto": 2,
+      "alert": 2,
       "rest": 0
     },
     {
       "name": "海達街市",
       "total": 3,
-      "clockedIn": 0,
+      "clockedIn": 2,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "海麗商場",
       "total": 4,
-      "clockedIn": 1,
+      "clockedIn": 3,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "滿東街市",
       "total": 2,
-      "clockedIn": 0,
+      "clockedIn": 1,
       "clockedOut": 0,
-      "noPhoto": 2,
-      "alert": 2,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 1
     },
     {
       "name": "皇后山",
       "total": 2,
-      "clockedIn": 0,
+      "clockedIn": 1,
+      "clockedOut": 0,
+      "noPhoto": 1,
+      "alert": 1,
+      "rest": 0
+    },
+    {
+      "name": "石硤尾",
+      "total": 4,
+      "clockedIn": 2,
       "clockedOut": 0,
       "noPhoto": 2,
       "alert": 2,
       "rest": 0
     },
     {
-      "name": "石硤尾",
-      "total": 4,
-      "clockedIn": 0,
-      "clockedOut": 0,
-      "noPhoto": 4,
-      "alert": 4,
-      "rest": 0
-    },
-    {
       "name": "石門",
       "total": 3,
-      "clockedIn": 0,
+      "clockedIn": 1,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 2,
+      "alert": 2,
       "rest": 0
     },
     {
@@ -4938,28 +4938,28 @@
     {
       "name": "華富(一)",
       "total": 3,
-      "clockedIn": 0,
+      "clockedIn": 2,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "迎東街市",
       "total": 3,
-      "clockedIn": 0,
+      "clockedIn": 1,
       "clockedOut": 0,
-      "noPhoto": 3,
-      "alert": 3,
+      "noPhoto": 2,
+      "alert": 2,
       "rest": 0
     },
     {
       "name": "駿洋邨",
       "total": 4,
-      "clockedIn": 0,
+      "clockedIn": 3,
       "clockedOut": 0,
-      "noPhoto": 4,
-      "alert": 4,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     }
   ]
