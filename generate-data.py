@@ -20,11 +20,13 @@ HK_TZ = timedelta(hours=8)
 
 # === STEP 0: Phone mapping from contact list ===
 def load_phone_map():
-    """Load phone → (staff_no, chinese_name, english_name, estate, shift_pattern)"""
-    wb = openpyxl.load_workbook(CONTACT_PATH, data_only=True)
+    """Load phone → (staff_no, chinese_name, english_name, estate, shift_pattern)
+       From BOTH the roster summary file and the latest Supporting Staff Contact"""
     phone_map = {}
     estate_worker_map = defaultdict(list)  # estate → [(chinese_name, staff_no, shift_pattern)]
     
+    # Source 1: Roster summary file (ACVSTMC_所有邨_更表總覽)
+    wb = openpyxl.load_workbook(CONTACT_PATH, data_only=True)
     for sname in wb.sheetnames:
         ws = wb[sname]
         for row in ws.iter_rows(min_row=2, values_only=True):
@@ -50,7 +52,47 @@ def load_phone_map():
                 'remarks': remarks,
             })
     
-    return phone_map, estate_worker_map, wb
+    wb.close()
+    
+    # Source 2: Latest Supporting Staff Contact.xlsx (supplements/overrides)
+    SUPPORT_PATH = '/home/kenny/.hermes/profiles/housing-admin/cache/documents/doc_e36d949a785d_Supporting Staff Contact.xlsx'
+    try:
+        swb = openpyxl.load_workbook(SUPPORT_PATH, data_only=True)
+        sws = swb['Operator']
+        sdata = list(sws.iter_rows(min_row=9, values_only=True))  # row 9=first estate header
+        cur_estate = ''
+        for row in sdata:
+            if not row or not row[0]:
+                continue
+            col0 = str(row[0]).strip()
+            # Check if this is an estate header
+            if any(kw in col0 for kw in ('Centre', 'Market', 'Headquarters', 'Shopping', 'Estate', 'Plaza', 'Driver', 'Town', 'Reclamation')):
+                cur_estate = col0
+                continue
+            # Check if it's a worker row (item number)
+            if re.match(r'^\d+$', col0) and row[2]:
+                sno = str(row[1] or '').strip()
+                ename = str(row[2] or '').strip()
+                cname = str(row[3] or '').strip()
+                phone_raw = str(row[10] or '').strip() if len(row) > 10 else ''
+                phone = re.sub(r'[\s\-\(\)]', '', phone_raw)
+                
+                if phone and phone not in phone_map:
+                    phone_map[phone] = (sno, cname, ename, cur_estate, '')
+                # Also update estate_worker_map if staff_no present
+                if sno and sno.startswith('W') and cur_estate:
+                    estate_worker_map[cur_estate].append({
+                        'staff_no': sno,
+                        'chinese_name': cname,
+                        'english_name': ename,
+                        'shift_pattern': '',
+                        'remarks': '',
+                    })
+        swb.close()
+    except Exception as e:
+        print(f"[INFO] Could not load Supporting Staff Contact: {e}")
+    
+    return phone_map, estate_worker_map, None
 
 # === STEP 1: Load lid → phone mapping ===
 def load_lid_map():

@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-07-04 03:11 UTC",
+  "lastUpdated": "2026-07-06 14:44 UTC",
   "date": "2026-07-04",
   "totalWorkers": 53,
-  "clockedIn": 29,
-  "clockedOut": 0,
-  "noPhoto": 24,
-  "hasPhoto": 29,
-  "alertCount": 24,
-  "attendanceRate": 54.7,
+  "clockedIn": 33,
+  "clockedOut": 34,
+  "noPhoto": 17,
+  "hasPhoto": 36,
+  "alertCount": 20,
+  "attendanceRate": 67.9,
   "shiftDefinitions": {
     "房委會(1,2座)": {
       "A": "06:30-16:30",
@@ -154,7 +154,7 @@
           "staffNo": "W3017",
           "shift": "B",
           "clockIn": "06:16",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "B",
             "B",
@@ -196,7 +196,7 @@
           "staffNo": "W3018",
           "shift": "A",
           "clockIn": "05:48",
-          "clockOut": "",
+          "clockOut": "18:01",
           "monthlyShifts": [
             "A",
             "B",
@@ -238,7 +238,7 @@
           "staffNo": "W3019",
           "shift": "B",
           "clockIn": "07:53",
-          "clockOut": "",
+          "clockOut": "22:00",
           "monthlyShifts": [
             "B",
             "C",
@@ -280,7 +280,7 @@
           "staffNo": "W3027",
           "shift": "B",
           "clockIn": "07:42",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "A",
             "B",
@@ -322,7 +322,7 @@
           "staffNo": "W3056",
           "shift": "B",
           "clockIn": "07:41",
-          "clockOut": "",
+          "clockOut": "18:02",
           "monthlyShifts": [
             "B",
             "B",
@@ -412,7 +412,7 @@
           "staffNo": "W3016",
           "shift": "B",
           "clockIn": "08:00",
-          "clockOut": "",
+          "clockOut": "18:03",
           "monthlyShifts": [
             "AB",
             "H",
@@ -453,8 +453,8 @@
           "chineseName": "許作權",
           "staffNo": "W3033",
           "shift": "C",
-          "clockIn": "",
-          "clockOut": "",
+          "clockIn": "12:48",
+          "clockOut": "23:01",
           "monthlyShifts": [
             "C",
             "C",
@@ -488,7 +488,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         }
       ]
     },
@@ -544,7 +544,7 @@
           "staffNo": "W3015",
           "shift": "B",
           "clockIn": "06:17",
-          "clockOut": "",
+          "clockOut": "18:18",
           "monthlyShifts": [
             "B",
             "B",
@@ -628,7 +628,7 @@
           "staffNo": "W3052",
           "shift": "B",
           "clockIn": "07:21",
-          "clockOut": "",
+          "clockOut": "18:02",
           "monthlyShifts": [
             "B",
             "B",
@@ -718,7 +718,7 @@
           "staffNo": "W3048",
           "shift": "B",
           "clockIn": "07:29",
-          "clockOut": "",
+          "clockOut": "19:00",
           "monthlyShifts": [
             "B",
             "B",
@@ -844,7 +844,7 @@
           "staffNo": "W3047",
           "shift": "C",
           "clockIn": "06:13",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "C",
             "C",
@@ -892,7 +892,7 @@
           "staffNo": "W3030",
           "shift": "AB",
           "clockIn": "07:49",
-          "clockOut": "",
+          "clockOut": "20:26",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -976,7 +976,7 @@
           "staffNo": "W3040",
           "shift": "AB",
           "clockIn": "07:55",
-          "clockOut": "",
+          "clockOut": "18:15",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -1018,7 +1018,7 @@
           "staffNo": "W3041",
           "shift": "C",
           "clockIn": "10:42",
-          "clockOut": "",
+          "clockOut": "23:05",
           "monthlyShifts": [
             "C",
             "C",
@@ -1108,7 +1108,7 @@
           "staffNo": "W3020",
           "shift": "AB",
           "clockIn": "06:22",
-          "clockOut": "",
+          "clockOut": "18:01",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -1150,7 +1150,7 @@
           "staffNo": "W3007",
           "shift": "B",
           "clockIn": "07:50",
-          "clockOut": "",
+          "clockOut": "18:01",
           "monthlyShifts": [
             "B",
             "B",
@@ -1192,7 +1192,7 @@
           "staffNo": "W3006",
           "shift": "C5",
           "clockIn": "",
-          "clockOut": "",
+          "clockOut": "23:06",
           "monthlyShifts": [
             "C5",
             "C5",
@@ -1240,7 +1240,7 @@
           "staffNo": "W3031",
           "shift": "B",
           "clockIn": "07:48",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "B",
             "B",
@@ -1282,7 +1282,7 @@
           "staffNo": "W3025",
           "shift": "AB",
           "clockIn": "05:49",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -1414,7 +1414,7 @@
           "staffNo": "W3034",
           "shift": "A",
           "clockIn": "05:49",
-          "clockOut": "",
+          "clockOut": "16:00",
           "monthlyShifts": [
             "A",
             "A",
@@ -1455,8 +1455,8 @@
           "chineseName": "邵佩連",
           "staffNo": "W3035",
           "shift": "C",
-          "clockIn": "",
-          "clockOut": "",
+          "clockIn": "12:50",
+          "clockOut": "23:01",
           "monthlyShifts": [
             "C",
             "C",
@@ -1490,7 +1490,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "沈永強",
@@ -1546,7 +1546,7 @@
           "staffNo": "W3044",
           "shift": "AB",
           "clockIn": "06:17",
-          "clockOut": "",
+          "clockOut": "18:02",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -1636,7 +1636,7 @@
           "staffNo": "W3004",
           "shift": "B",
           "clockIn": "07:55",
-          "clockOut": "",
+          "clockOut": "18:31",
           "monthlyShifts": [
             "B",
             "B",
@@ -1678,7 +1678,7 @@
           "staffNo": "W3010",
           "shift": "B",
           "clockIn": "06:19",
-          "clockOut": "",
+          "clockOut": "18:04",
           "monthlyShifts": [
             "A",
             "B",
@@ -1720,7 +1720,7 @@
           "staffNo": "W3051",
           "shift": "C4.5",
           "clockIn": "",
-          "clockOut": "",
+          "clockOut": "23:03",
           "monthlyShifts": [
             "C4.5",
             "C4.5",
@@ -1852,7 +1852,7 @@
           "staffNo": "W3028",
           "shift": "C",
           "clockIn": "07:51",
-          "clockOut": "",
+          "clockOut": "23:00",
           "monthlyShifts": [
             "C",
             "C",
@@ -1941,7 +1941,7 @@
           "chineseName": "吳炳沟",
           "staffNo": "W3022",
           "shift": "C",
-          "clockIn": "",
+          "clockIn": "12:28",
           "clockOut": "",
           "monthlyShifts": [
             "C",
@@ -1976,7 +1976,7 @@
             "H",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         },
         {
           "name": "利曉晴",
@@ -2032,7 +2032,7 @@
           "staffNo": "W3003",
           "shift": "B",
           "clockIn": "07:47",
-          "clockOut": "",
+          "clockOut": "18:01",
           "monthlyShifts": [
             "B",
             "B",
@@ -2074,7 +2074,7 @@
           "staffNo": "W3012",
           "shift": "C",
           "clockIn": "",
-          "clockOut": "",
+          "clockOut": "23:03",
           "monthlyShifts": [
             "C",
             "C",
@@ -2116,7 +2116,7 @@
           "staffNo": "W3011",
           "shift": "A",
           "clockIn": "05:45",
-          "clockOut": "",
+          "clockOut": "15:03",
           "monthlyShifts": [
             "A",
             "A",
@@ -2164,7 +2164,7 @@
           "staffNo": "W3005",
           "shift": "B",
           "clockIn": "07:51",
-          "clockOut": "",
+          "clockOut": "18:23",
           "monthlyShifts": [
             "B",
             "B",
@@ -2247,8 +2247,8 @@
           "chineseName": "朱德鳴",
           "staffNo": "W3023",
           "shift": "C",
-          "clockIn": "",
-          "clockOut": "",
+          "clockIn": "12:37",
+          "clockOut": "22:55",
           "monthlyShifts": [
             "C",
             "C",
@@ -2282,7 +2282,7 @@
             "C",
             "C"
           ],
-          "alertNoCheckIn": true
+          "alertNoCheckIn": false
         }
       ]
     },
@@ -2296,7 +2296,7 @@
           "staffNo": "W3021",
           "shift": "AB",
           "clockIn": "06:48",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -2338,7 +2338,7 @@
           "staffNo": "W3036",
           "shift": "AB",
           "clockIn": "07:54",
-          "clockOut": "",
+          "clockOut": "18:00",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -2380,7 +2380,7 @@
           "staffNo": "W3037",
           "shift": "AB",
           "clockIn": "07:49",
-          "clockOut": "",
+          "clockOut": "23:01",
           "monthlyShifts": [
             "AB",
             "AB",
@@ -2517,7 +2517,7 @@
               "staffNo": "W3017",
               "shift": "B",
               "clockIn": "06:16",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -2559,7 +2559,7 @@
               "staffNo": "W3018",
               "shift": "A",
               "clockIn": "05:48",
-              "clockOut": "",
+              "clockOut": "18:01",
               "monthlyShifts": [
                 "A",
                 "B",
@@ -2601,7 +2601,7 @@
               "staffNo": "W3019",
               "shift": "B",
               "clockIn": "07:53",
-              "clockOut": "",
+              "clockOut": "22:00",
               "monthlyShifts": [
                 "B",
                 "C",
@@ -2643,7 +2643,7 @@
               "staffNo": "W3027",
               "shift": "B",
               "clockIn": "07:42",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "A",
                 "B",
@@ -2685,7 +2685,7 @@
               "staffNo": "W3056",
               "shift": "B",
               "clockIn": "07:41",
-              "clockOut": "",
+              "clockOut": "18:02",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -2775,7 +2775,7 @@
               "staffNo": "W3016",
               "shift": "B",
               "clockIn": "08:00",
-              "clockOut": "",
+              "clockOut": "18:03",
               "monthlyShifts": [
                 "AB",
                 "H",
@@ -2816,8 +2816,8 @@
               "chineseName": "許作權",
               "staffNo": "W3033",
               "shift": "C",
-              "clockIn": "",
-              "clockOut": "",
+              "clockIn": "12:48",
+              "clockOut": "23:01",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -2851,7 +2851,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             }
           ]
         },
@@ -2907,7 +2907,7 @@
               "staffNo": "W3015",
               "shift": "B",
               "clockIn": "06:17",
-              "clockOut": "",
+              "clockOut": "18:18",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -2991,7 +2991,7 @@
               "staffNo": "W3052",
               "shift": "B",
               "clockIn": "07:21",
-              "clockOut": "",
+              "clockOut": "18:02",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -3081,7 +3081,7 @@
               "staffNo": "W3048",
               "shift": "B",
               "clockIn": "07:29",
-              "clockOut": "",
+              "clockOut": "19:00",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -3207,7 +3207,7 @@
               "staffNo": "W3047",
               "shift": "C",
               "clockIn": "06:13",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -3255,7 +3255,7 @@
               "staffNo": "W3030",
               "shift": "AB",
               "clockIn": "07:49",
-              "clockOut": "",
+              "clockOut": "20:26",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -3339,7 +3339,7 @@
               "staffNo": "W3040",
               "shift": "AB",
               "clockIn": "07:55",
-              "clockOut": "",
+              "clockOut": "18:15",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -3381,7 +3381,7 @@
               "staffNo": "W3041",
               "shift": "C",
               "clockIn": "10:42",
-              "clockOut": "",
+              "clockOut": "23:05",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -3471,7 +3471,7 @@
               "staffNo": "W3020",
               "shift": "AB",
               "clockIn": "06:22",
-              "clockOut": "",
+              "clockOut": "18:01",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -3513,7 +3513,7 @@
               "staffNo": "W3007",
               "shift": "B",
               "clockIn": "07:50",
-              "clockOut": "",
+              "clockOut": "18:01",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -3555,7 +3555,7 @@
               "staffNo": "W3006",
               "shift": "C5",
               "clockIn": "",
-              "clockOut": "",
+              "clockOut": "23:06",
               "monthlyShifts": [
                 "C5",
                 "C5",
@@ -3603,7 +3603,7 @@
               "staffNo": "W3031",
               "shift": "B",
               "clockIn": "07:48",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -3645,7 +3645,7 @@
               "staffNo": "W3025",
               "shift": "AB",
               "clockIn": "05:49",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -3777,7 +3777,7 @@
               "staffNo": "W3034",
               "shift": "A",
               "clockIn": "05:49",
-              "clockOut": "",
+              "clockOut": "16:00",
               "monthlyShifts": [
                 "A",
                 "A",
@@ -3818,8 +3818,8 @@
               "chineseName": "邵佩連",
               "staffNo": "W3035",
               "shift": "C",
-              "clockIn": "",
-              "clockOut": "",
+              "clockIn": "12:50",
+              "clockOut": "23:01",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -3853,7 +3853,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "沈永強",
@@ -3909,7 +3909,7 @@
               "staffNo": "W3044",
               "shift": "AB",
               "clockIn": "06:17",
-              "clockOut": "",
+              "clockOut": "18:02",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -3999,7 +3999,7 @@
               "staffNo": "W3004",
               "shift": "B",
               "clockIn": "07:55",
-              "clockOut": "",
+              "clockOut": "18:31",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -4041,7 +4041,7 @@
               "staffNo": "W3010",
               "shift": "B",
               "clockIn": "06:19",
-              "clockOut": "",
+              "clockOut": "18:04",
               "monthlyShifts": [
                 "A",
                 "B",
@@ -4083,7 +4083,7 @@
               "staffNo": "W3051",
               "shift": "C4.5",
               "clockIn": "",
-              "clockOut": "",
+              "clockOut": "23:03",
               "monthlyShifts": [
                 "C4.5",
                 "C4.5",
@@ -4215,7 +4215,7 @@
               "staffNo": "W3028",
               "shift": "C",
               "clockIn": "07:51",
-              "clockOut": "",
+              "clockOut": "23:00",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -4304,7 +4304,7 @@
               "chineseName": "吳炳沟",
               "staffNo": "W3022",
               "shift": "C",
-              "clockIn": "",
+              "clockIn": "12:28",
               "clockOut": "",
               "monthlyShifts": [
                 "C",
@@ -4339,7 +4339,7 @@
                 "H",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             },
             {
               "name": "利曉晴",
@@ -4395,7 +4395,7 @@
               "staffNo": "W3003",
               "shift": "B",
               "clockIn": "07:47",
-              "clockOut": "",
+              "clockOut": "18:01",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -4437,7 +4437,7 @@
               "staffNo": "W3012",
               "shift": "C",
               "clockIn": "",
-              "clockOut": "",
+              "clockOut": "23:03",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -4479,7 +4479,7 @@
               "staffNo": "W3011",
               "shift": "A",
               "clockIn": "05:45",
-              "clockOut": "",
+              "clockOut": "15:03",
               "monthlyShifts": [
                 "A",
                 "A",
@@ -4527,7 +4527,7 @@
               "staffNo": "W3005",
               "shift": "B",
               "clockIn": "07:51",
-              "clockOut": "",
+              "clockOut": "18:23",
               "monthlyShifts": [
                 "B",
                 "B",
@@ -4610,8 +4610,8 @@
               "chineseName": "朱德鳴",
               "staffNo": "W3023",
               "shift": "C",
-              "clockIn": "",
-              "clockOut": "",
+              "clockIn": "12:37",
+              "clockOut": "22:55",
               "monthlyShifts": [
                 "C",
                 "C",
@@ -4645,7 +4645,7 @@
                 "C",
                 "C"
               ],
-              "alertNoCheckIn": true
+              "alertNoCheckIn": false
             }
           ]
         },
@@ -4659,7 +4659,7 @@
               "staffNo": "W3021",
               "shift": "AB",
               "clockIn": "06:48",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -4701,7 +4701,7 @@
               "staffNo": "W3036",
               "shift": "AB",
               "clockIn": "07:54",
-              "clockOut": "",
+              "clockOut": "18:00",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -4743,7 +4743,7 @@
               "staffNo": "W3037",
               "shift": "AB",
               "clockIn": "07:49",
-              "clockOut": "",
+              "clockOut": "23:01",
               "monthlyShifts": [
                 "AB",
                 "AB",
@@ -4831,7 +4831,7 @@
       "name": "房委會(1,2座)",
       "total": 6,
       "clockedIn": 5,
-      "clockedOut": 0,
+      "clockedOut": 5,
       "noPhoto": 1,
       "alert": 1,
       "rest": 0
@@ -4839,17 +4839,17 @@
     {
       "name": "房委會(3座)",
       "total": 3,
-      "clockedIn": 1,
-      "clockedOut": 0,
-      "noPhoto": 2,
-      "alert": 2,
+      "clockedIn": 2,
+      "clockedOut": 2,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "房署總部4座",
       "total": 5,
       "clockedIn": 2,
-      "clockedOut": 0,
+      "clockedOut": 2,
       "noPhoto": 3,
       "alert": 3,
       "rest": 0
@@ -4858,7 +4858,7 @@
       "name": "晴朗商場",
       "total": 4,
       "clockedIn": 2,
-      "clockedOut": 0,
+      "clockedOut": 2,
       "noPhoto": 2,
       "alert": 2,
       "rest": 0
@@ -4867,7 +4867,7 @@
       "name": "水泉澳",
       "total": 5,
       "clockedIn": 3,
-      "clockedOut": 0,
+      "clockedOut": 3,
       "noPhoto": 2,
       "alert": 2,
       "rest": 0
@@ -4876,8 +4876,8 @@
       "name": "海達街市",
       "total": 3,
       "clockedIn": 2,
-      "clockedOut": 0,
-      "noPhoto": 1,
+      "clockedOut": 3,
+      "noPhoto": 0,
       "alert": 1,
       "rest": 0
     },
@@ -4885,7 +4885,7 @@
       "name": "海麗商場",
       "total": 4,
       "clockedIn": 3,
-      "clockedOut": 0,
+      "clockedOut": 2,
       "noPhoto": 1,
       "alert": 1,
       "rest": 0
@@ -4893,17 +4893,17 @@
     {
       "name": "滿東街市",
       "total": 2,
-      "clockedIn": 1,
-      "clockedOut": 0,
-      "noPhoto": 1,
-      "alert": 1,
+      "clockedIn": 2,
+      "clockedOut": 2,
+      "noPhoto": 0,
+      "alert": 0,
       "rest": 1
     },
     {
       "name": "皇后山",
       "total": 2,
       "clockedIn": 1,
-      "clockedOut": 0,
+      "clockedOut": 1,
       "noPhoto": 1,
       "alert": 1,
       "rest": 0
@@ -4912,8 +4912,8 @@
       "name": "石硤尾",
       "total": 4,
       "clockedIn": 2,
-      "clockedOut": 0,
-      "noPhoto": 2,
+      "clockedOut": 3,
+      "noPhoto": 1,
       "alert": 2,
       "rest": 0
     },
@@ -4921,7 +4921,7 @@
       "name": "石門",
       "total": 3,
       "clockedIn": 1,
-      "clockedOut": 0,
+      "clockedOut": 1,
       "noPhoto": 2,
       "alert": 2,
       "rest": 0
@@ -4929,35 +4929,35 @@
     {
       "name": "美田邨",
       "total": 2,
-      "clockedIn": 0,
-      "clockedOut": 0,
-      "noPhoto": 2,
-      "alert": 2,
-      "rest": 0
-    },
-    {
-      "name": "華富(一)",
-      "total": 3,
-      "clockedIn": 2,
+      "clockedIn": 1,
       "clockedOut": 0,
       "noPhoto": 1,
       "alert": 1,
       "rest": 0
     },
     {
+      "name": "華富(一)",
+      "total": 3,
+      "clockedIn": 2,
+      "clockedOut": 3,
+      "noPhoto": 0,
+      "alert": 1,
+      "rest": 0
+    },
+    {
       "name": "迎東街市",
       "total": 3,
-      "clockedIn": 1,
-      "clockedOut": 0,
-      "noPhoto": 2,
-      "alert": 2,
+      "clockedIn": 2,
+      "clockedOut": 2,
+      "noPhoto": 1,
+      "alert": 1,
       "rest": 0
     },
     {
       "name": "駿洋邨",
       "total": 4,
       "clockedIn": 3,
-      "clockedOut": 0,
+      "clockedOut": 3,
       "noPhoto": 1,
       "alert": 1,
       "rest": 0
